@@ -22,6 +22,8 @@ void sortPoint(int width, int height, vector<pair<int, int>>& p)
 	int top = 0;
 	int bottom = height - 1;
 
+	p.push_back({ 0, 0 });
+
 	while (left < right && top < bottom)
 	{
 		for (int i = left; i < right; i++)
@@ -61,6 +63,7 @@ int main()
 	vector<pair<int, int>> point;
 	unsigned long startTick = GetTickCount64();
 	unsigned long pauseTick;
+	unsigned long gapTick;
 
 	cin >> width >> height >> speed;
 
@@ -76,8 +79,11 @@ int main()
 		if (_kbhit() && _getch() == ' ')
 		{
 			pauseTick = GetTickCount64();
+			gapTick = GetTickCount64() - startTick;
 			isContinue = !isContinue;
 			system("cls");
+			gotoxy(point[cnt].first, point[cnt].second);
+			cout << "O";
 		}
 
 		if (isContinue)
@@ -86,27 +92,26 @@ int main()
 			{
 				startTick = GetTickCount64();
 				system("cls");
+				cnt++;
 				gotoxy(point[cnt].first, point[cnt].second);
 				cout << "O";
-				cnt++;
 			}
 		}
 		else
 		{
-			if (GetTickCount64() - pauseTick <= 500)
+			if (GetTickCount64() - pauseTick > 500)
+				pauseTick = GetTickCount64();
+			else
 			{
 				if (GetTickCount64() - pauseTick > 250)
-				{
 					system("cls");
-				}
 				else
 				{
 					gotoxy(point[cnt].first, point[cnt].second);
 					cout << "O";
 				}
 			}
-			else
-				pauseTick = GetTickCount64();
+			startTick = GetTickCount64() - gapTick;
 		}
 	}
 	gotoxy(0, height);
