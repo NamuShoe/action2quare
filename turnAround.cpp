@@ -22,8 +22,6 @@ void sortPoint(int width, int height, vector<pair<int, int>>& p)
 	int top = 0;
 	int bottom = height - 1;
 
-	p.push_back({ 0, 0 });
-
 	while (left < right && top < bottom)
 	{
 		for (int i = left; i < right; i++)
@@ -56,7 +54,7 @@ void sortPoint(int width, int height, vector<pair<int, int>>& p)
 
 int main()
 {
-	int cnt = 0;
+	int cnt = -1;
 	int width, height;
 	double speed;
 	bool isContinue = true;
@@ -74,7 +72,7 @@ int main()
 
 	sortPoint(width, height, point);
 
-	while (cnt < point.size())
+	while (cnt < (int)point.size() - 1)
 	{
 		if (_kbhit() && _getch() == ' ')
 		{
@@ -91,8 +89,8 @@ int main()
 			if (GetTickCount64() - startTick > 1 / speed * 1000)
 			{
 				startTick = GetTickCount64();
-				system("cls");
 				cnt++;
+				system("cls");
 				gotoxy(point[cnt].first, point[cnt].second);
 				cout << "O";
 			}
