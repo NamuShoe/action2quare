@@ -37,7 +37,7 @@ int main()
 		//Logic
 		if (tet == nullptr)
 		{
-			tet = new Tetromino(4);
+			tet = new Tetromino(rand() % 7);
 			if (tet->isBlock(board))
 				break;
 			tet->goUp();

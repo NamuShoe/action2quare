@@ -135,16 +135,6 @@ void Tetromino::rotate()
 	}
 }
 
-void Tetromino::reverseRotate()
-{
-	Block temp[BLOCK_SIZE][BLOCK_SIZE];
-
-	for (int i = 0; i < BLOCK_SIZE; i++)
-	{
-		block[i] = { size - 1 - block[i].getY(), block[i].getX(), block[i].getColor() };
-	}
-}
-
 void Tetromino::wallKick(Board& board)
 {
 	int tempX = x;

@@ -29,7 +29,6 @@ public:
 	void goUp() { x -= 1; };
 	void goDown() { x += 1; };
 	void rotate();
-	void reverseRotate();
 
 	void wallKick(Board& board);
 };
