@@ -58,3 +58,39 @@ void Block::print(int x, int y)
 	}
 }
 
+void Block::guidePrint(int x, int y)
+{
+	gotoxy(x, y);
+	switch (color)
+	{
+	case Black:
+		cout << BLACK"  ";
+		break;
+	case Red:
+		cout << GUIDE_RED"  ";
+		break;
+	case Orange:
+		cout << GUIDE_ORANGE"  ";
+		break;
+	case Yellow:
+		cout << GUIDE_YELLOW"  ";
+		break;
+	case Green:
+		cout << GUIDE_GREEN"  ";
+		break;
+	case Sky_blue:
+		cout << GUIDE_SKY_BLUE"  ";
+		break;
+	case Blue:
+		cout << GUIDE_BLUE"  ";
+		break;
+	case Purple:
+		cout << GUIDE_PURPLE"  ";
+		break;
+	case White:
+		cout << WHITE"  ";
+		break;
+	default:
+		break;
+	}
+}

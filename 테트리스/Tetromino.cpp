@@ -114,6 +114,20 @@ void Tetromino::print()
 	change = false;
 }
 
+void Tetromino::guidePrint(Board& board, Tetromino tetro)
+{
+	*this = tetro;
+	
+	while(!isBlock(board))
+		guideDown(board);
+	x -= 1;
+
+	for (int i = 0; i < BLOCK_SIZE; i++)
+	{
+		block[i].guidePrint(block[i].getX() + x, block[i].getY() + y);
+	}
+}
+
 bool Tetromino::isBlock(Board& board)
 {
 	for (int i = 0; i < BLOCK_SIZE; i++)
@@ -156,9 +170,8 @@ void Tetromino::goDown(Board& board)
 	if (isBlock(board))
 	{
 		x -= 1;
-		board.setTetromino(*this);
-		board.removeLine();
 		fix = true;
+		change = false;
 	}
 	else
 		change = true;

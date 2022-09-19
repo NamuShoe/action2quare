@@ -9,6 +9,14 @@
 #define PURPLE "\x1b[48;2;128;0;128m"
 #define WHITE "\x1b[48;2;256;256;256m"
 
+#define GUIDE_RED "\x1b[48;2;128;0;0m"
+#define GUIDE_ORANGE "\x1b[48;2;128;64;0m"
+#define GUIDE_YELLOW "\x1b[48;2;128;128;0m"
+#define GUIDE_GREEN "\x1b[48;2;0;128;0m"
+#define GUIDE_SKY_BLUE "\x1b[48;2;0;96;128m"
+#define GUIDE_BLUE "\x1b[48;2;0;0;128m"
+#define GUIDE_PURPLE "\x1b[48;2;64;0;64m"
+
 enum Color
 {
 	Black = 0,
@@ -38,4 +46,5 @@ public:
 	Color getColor() { return color; };
 	void setColor(Color color) { this->color = color; };
 	void print(int x, int y);
+	void guidePrint(int x, int y);
 };

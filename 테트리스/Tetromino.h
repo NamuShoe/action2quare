@@ -28,6 +28,9 @@ public:
 
 	void print();
 
+	void guidePrint(Board& board, Tetromino tetro);
+	void guideDown(Board& board) { x += 1; };
+
 	bool isBlock(Board& board);
 
 	void goLeft(Board& board);
