@@ -1,4 +1,4 @@
-#include "Block.h"
+ï»¿#include "Block.h"
 #include <iostream>
 #include <windows.h>
 
@@ -6,7 +6,7 @@ using namespace std;
 
 void gotoxy(int x, int y)
 {
-	COORD pos = { y * 2, x }; // 2Â÷¿ø ¹è¿­ x, y¿Í ¹İ´ë
+	COORD pos = { y * 2, x }; // 2ì°¨ì› ë°°ì—´ x, yì™€ ë°˜ëŒ€
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
@@ -57,3 +57,4 @@ void Block::print(int x, int y)
 		break;
 	}
 }
+

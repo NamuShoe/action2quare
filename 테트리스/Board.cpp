@@ -1,4 +1,4 @@
-#include "Board.h"
+﻿#include "Board.h"
 #include "Tetromino.h"
 #include <iostream>
 
@@ -10,6 +10,7 @@ Board::Board()
 	{
 		blocks[height - 1][i] = { height - 1, i, Color::White };
 	}
+
 	for (int i = 0; i < height - 1; i++)
 	{
 		blocks[i][0] = { i, 0, Color::White };
@@ -25,6 +26,7 @@ void Board::print()
 		{
 			blocks[i][j].print(i, j);
 		}
+		cout << BLACK"          ";
 	}
 }
 
@@ -35,28 +37,8 @@ void Board::setTetromino(Tetromino tet)
 
 	for (int i = 0; i < BLOCK_SIZE; i++)
 	{
-		blocks[tet.getX() + block[i].getX()][tet.getY() + block[i].getY()] = { tet.getX() + block[i].getX(), tet.getY() + block[i].getY() , block[i].getColor()};
+		blocks[tet.getX() + block[i].getX()][tet.getY() + block[i].getY()] = { tet.getX() + block[i].getX(), tet.getY() + block[i].getY() , block[i].getColor() };
 	}
-}
-
-bool Board::isLine()
-{
-	bool isLine;
-	for (int i = HEIGHT - 2; i >= 0; i--)
-	{
-		isLine = true;
-		for (int j = 1; j < WIDTH - 1; j++)
-		{
-			if (blocks[i][j].getColor() == 0)
-			{
-				isLine = false;
-				break;
-			}
-		}
-		if (isLine)
-			return true;
-	}
-	return false;
 }
 
 void Board::removeLine()
@@ -74,23 +56,30 @@ void Board::removeLine()
 			}
 		}
 		if (isLine)
-			sortLine(i);
+		{
+			pressLine(i);
+			i++;
+		}
 	}
 }
 
-void Board::sortLine(int n)
+void Board::pressLine(int n)
 {
+	Color temp;
+
 	for (int j = 1; j < WIDTH - 1; j++)
-	{
 		blocks[n][j].setColor(Color::Black);
-	}
 
 	for (int i = n; i > 0; i--)
 	{
 		for (int j = 1; j < WIDTH - 1; j++)
 		{
-			swap(blocks[i][j], blocks[i-1][j]);
-			blocks[i][j].setX(i - 1);
+			if (blocks[i][j].getColor() != blocks[i - 1][j].getColor())
+			{
+				temp = blocks[i][j].getColor();
+				blocks[i][j].setColor(blocks[i - 1][j].getColor());
+				blocks[i - 1][j].setColor(temp);
+			}
 		}
 	}
 }

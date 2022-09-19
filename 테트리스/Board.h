@@ -18,7 +18,6 @@ public:
 	void print();
 	Block getBlock(int x, int y) { return blocks[x][y]; };
 	void setTetromino(Tetromino tet);
-	bool isLine();
 	void removeLine();
-	void sortLine(int n);
+	void pressLine(int n);
 };

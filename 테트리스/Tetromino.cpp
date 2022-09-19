@@ -1,4 +1,4 @@
-#include "Tetromino.h"
+﻿#include "Tetromino.h"
 #include "Board.h"
 #include <iostream>
 #include <algorithm>
@@ -109,8 +109,9 @@ void Tetromino::print()
 {
 	for (int i = 0; i < BLOCK_SIZE; i++)
 	{
-		block[i].print(block[i].getX() + x,block[i].getY() + y);
+		block[i].print(block[i].getX() + x, block[i].getY() + y);
 	}
+	change = false;
 }
 
 bool Tetromino::isBlock(Board& board)
@@ -125,14 +126,58 @@ bool Tetromino::isBlock(Board& board)
 	return false;
 }
 
-void Tetromino::rotate()
+void Tetromino::goLeft(Board& board)
 {
-	Block temp[BLOCK_SIZE][BLOCK_SIZE];
+	y -= 1;
+	if (isBlock(board))
+	{
+		y += 1;
+		change = false;
+	}
+	else
+		change = true;
+}
 
+void Tetromino::goRight(Board& board)
+{
+	y += 1;
+	if (isBlock(board))
+	{
+		y -= 1;
+		change = false;
+	}
+	else
+		change = true;
+}
+
+void Tetromino::goDown(Board& board)
+{
+	x += 1;
+	if (isBlock(board))
+	{
+		x -= 1;
+		board.setTetromino(*this);
+		board.removeLine();
+		fix = true;
+	}
+	else
+		change = true;
+}
+
+void Tetromino::rotate(Board& board)
+{
 	for (int i = 0; i < BLOCK_SIZE; i++)
 	{
-		block[i] = { block[i].getY(), size - 1 - block[i].getX(), block[i].getColor()};
+		//시계방향으로 회전할 경우
+		//회전 후 행의 값은, 기존 열의 값
+		//회전 후 열의 값은, 기존 행의 최댓값에서 기존 행의 값을 뺀 값
+		block[i] = { block[i].getY(), size - 1 - block[i].getX(), block[i].getColor() };
 	}
+
+	if (isBlock(board))
+		wallKick(board);
+
+	change = true;
 }
 
 void Tetromino::wallKick(Board& board)
