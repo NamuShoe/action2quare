@@ -52,8 +52,8 @@ int main()
 			if(tetroDeque.size() < 7)
 				setNextTetro(tetroDeque);//큐에 새로운 테트로미노 추가
 
-			tet = new Tetromino(tetroDeque.front());//tetroQueue의 첫번째 생성
-			tetroDeque.pop_front();//tetroQueue의 첫번째 삭제
+			tet = new Tetromino(tetroDeque.front());//tetroDuque의 첫번째 생성
+			tetroDeque.pop_front();//tetroDuque의 첫번째 삭제
 			if (tet->isBlock(board))//생성 될 때 충돌할 경우 GameOver
 				break;
 		}
