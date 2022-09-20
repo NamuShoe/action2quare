@@ -202,8 +202,9 @@ void Tetromino::wallKick(Board& board)
 {
 	int tempX = x;
 	int tempY = y;
+	int i;
 
-	for (int i = 0; i < 24; i++)
+	for (i = 0; i < 24; i++)
 	{
 		x += wallKickTest[i].first;
 		y += wallKickTest[i].second;
@@ -214,5 +215,9 @@ void Tetromino::wallKick(Board& board)
 			x = tempX;
 			y = tempY;
 		}
+	}
+	if (i == 24)
+	{
+		rotate(board);
 	}
 }
