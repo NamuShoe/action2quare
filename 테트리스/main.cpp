@@ -35,7 +35,7 @@ int main()
 
 	system("cls");
 	Tetromino* tet = nullptr;
-	Tetromino* tet2nd = nullptr;
+	Tetromino* guideTet = nullptr;
 	Tetromino nextTet = NULL;
 
 	while (true)
@@ -51,10 +51,10 @@ int main()
 		if (tet == nullptr)//테트로미노가 없을 경우
 		{
 			if(tetroDeque.size() < 7)
-				setNextTetro(tetroDeque);//큐에 새로운 테트로미노 추가
+				setNextTetro(tetroDeque);//데큐에 새로운 테트로미노 추가
 
 			tet = new Tetromino(tetroDeque.front());//tetroDuque의 첫번째 생성
-			tet2nd = new Tetromino(tetroDeque.front());
+			guideTet = new Tetromino(tetroDeque.front());
 			tetroDeque.pop_front();//tetroDuque의 첫번째 삭제
 			if (tet->isBlock(board))//생성 될 때 충돌할 경우 GameOver
 				break;
@@ -96,7 +96,7 @@ int main()
 		if (tet->isChange())//테트로미노에 변경이 있을 경우
 		{
 			board.print();//보드 출력
-			tet2nd->guidePrint(board, *tet);//가이드테트로미노 출력
+			guideTet->guidePrint(board, *tet);//가이드테트로미노 출력
 			tet->print();//테트로미노 출력
 			for (int i = 0; i < 5; i++)
 				showNextTetro(Tetromino(tetroDeque[i]), 1 + (4 * i), 13);

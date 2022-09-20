@@ -29,7 +29,7 @@ public:
 	void print();
 
 	void guidePrint(Board& board, Tetromino tetro);
-	void guideDown(Board& board) { x += 1; };
+	void guideDown(Board& board);
 
 	bool isBlock(Board& board);
 
