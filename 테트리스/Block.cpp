@@ -15,9 +15,15 @@ Block::Block()
 	x = 0;
 	y = 0;
 	color = Color::Black;
+	fill = false;
 }
 
 Block::Block(int x, int y, Color color) : x(x), y(y), color(color)
+{
+	fill = false;
+}
+
+Block::Block(int x, int y, Color color, bool fill) : x(x), y(y), color(color), fill(fill)
 {
 }
 
@@ -86,9 +92,6 @@ void Block::guidePrint(int x, int y)
 		break;
 	case Purple:
 		cout << GUIDE_PURPLE"  ";
-		break;
-	case White:
-		cout << WHITE"  ";
 		break;
 	default:
 		break;

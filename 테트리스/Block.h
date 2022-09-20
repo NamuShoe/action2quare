@@ -36,15 +36,19 @@ private:
 	int x;
 	int y;
 	Color color;
+	bool fill;
 public:
 	Block();
 	Block(int x, int y, Color color);
+	Block(int x, int y, Color color, bool fill);
 	int getX() { return x; };
 	void setX(int x) { this->x = x; };
 	int getY() { return y; };
 	void setY(int y) { this->y = y; };
 	Color getColor() { return color; };
 	void setColor(Color color) { this->color = color; };
+	bool isFill() { return fill; };
+	void setFill(bool fill) { this->fill = fill; };
 	void print(int x, int y);
 	void guidePrint(int x, int y);
 };

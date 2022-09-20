@@ -98,7 +98,7 @@ Tetromino::Tetromino(int num)
 		{
 			if (blockTypes[num][i][j] != 0)
 			{
-				block[cnt] = { i, j, (Color)blockTypes[num][i][j] };
+				block[cnt] = { i, j, (Color)blockTypes[num][i][j], true };
 				cnt++;
 			}
 		}
@@ -137,7 +137,7 @@ bool Tetromino::isBlock(Board& board)
 {
 	for (int i = 0; i < BLOCK_SIZE; i++)
 	{
-		if (board.getBlock(x + block[i].getX(), y + block[i].getY()).getColor() != 0)
+		if (board.getBlock(x + block[i].getX(), y + block[i].getY()).isFill() == true)
 		{
 			return true;
 		}
@@ -189,7 +189,7 @@ void Tetromino::rotate(Board& board)
 		//시계방향으로 회전할 경우
 		//회전 후 행의 값은, 기존 열의 값
 		//회전 후 열의 값은, 기존 행의 최댓값에서 기존 행의 값을 뺀 값
-		block[i] = { block[i].getY(), size - 1 - block[i].getX(), block[i].getColor() };
+		block[i] = { block[i].getY(), size - 1 - block[i].getX(), block[i].getColor(), true };
 	}
 
 	if (isBlock(board))
