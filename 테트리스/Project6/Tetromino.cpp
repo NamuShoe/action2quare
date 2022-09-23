@@ -137,7 +137,7 @@ bool Tetromino::isBlock(Board& board)
 {
 	for (int i = 0; i < BLOCK_SIZE; i++)
 	{
-		if (board.getBlock(x + block[i].getX(), y + block[i].getY()).isFill() == true)
+		if (board.getBlock(x + block[i].getX(), y + block[i].getY()).isFill() != false)
 		{
 			return true;
 		}
