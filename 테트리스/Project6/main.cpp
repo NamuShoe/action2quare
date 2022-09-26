@@ -1,5 +1,6 @@
 ﻿#include "Tetromino.h"
 #include "Board.h"
+#include "AiPlayer.h"
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
@@ -34,6 +35,8 @@ int main()
 	Tetromino* tet = nullptr;
 	Tetromino* guideTet = nullptr;
 	Tetromino nextTet = NULL;
+
+	AiPlayer aiPlayer;
 
 	cout << "1. 테트리스 시작, 2. AI 테트리스 시범 플레이: ";
 	cin >> playerSelect;
@@ -110,13 +113,6 @@ int main()
 			}
 			break;
 		case 2:
-			//Input------------------------------------------------------------
-			if (_kbhit())//키 입력 있으면 true, 없으면 false
-				control = _getch();//입력 키 반환
-			else
-				control = NULL;//입력 키 비움
-
-
 			//Logic------------------------------------------------------------
 			if (tet == nullptr)//테트로미노가 없을 경우
 			{
@@ -130,6 +126,13 @@ int main()
 					break;
 			}
 
+			// 이 부분은 컴퓨터가 생각하는 부분이 들어가야 한다.
+			
+			aiPlayer.AI_CheckAroundValue(tet->getX(), tet->getY(),)
+
+			// 이 부분은 컴퓨터가 생각한 것을 토대로 실제 키를 입력하는 부분이 들어가야 한다.
+
+			/*
 			switch (control)//_getch로 입력 받은 키
 			{
 			case LEFT:
@@ -146,6 +149,7 @@ int main()
 				startTick = GetTickCount64();//아래로 갈 경우, 시간 초기화
 				break;
 			}
+			*/
 
 			if (GetTickCount64() - startTick > 1.0 / speed * MILLI_SECOND)//일정 시간이 지날 경우
 			{
@@ -174,6 +178,9 @@ int main()
 			break;
 
 		default:
+			cout << "잘못된 값 입니다.\n";
+			cout << "1. 테트리스 시작, 2. AI 테트리스 시범 플레이: ";
+			cin >> playerSelect;
 			break;
 		}	
 	}

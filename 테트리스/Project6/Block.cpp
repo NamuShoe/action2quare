@@ -4,12 +4,14 @@
 
 using namespace std;
 
+// 커서를 움직이는 함수
 void gotoxy(int x, int y)
 {
 	COORD pos = { y * 2, x }; // 2차원 배열 x, y와 반대
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
+// 블럭의 생성자 x, y 좌표 color 초기화 색상 초기화
 Block::Block()
 {
 	x = 0;
@@ -27,6 +29,7 @@ Block::Block(int x, int y, Color color, bool fill) : x(x), y(y), color(color), f
 {
 }
 
+// 블럭의 색상에 따라서 print
 void Block::print(int x, int y)
 {
 	gotoxy(x, y);

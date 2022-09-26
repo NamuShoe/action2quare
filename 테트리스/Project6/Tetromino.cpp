@@ -51,6 +51,7 @@ int blockTypes[7][4][4] =
 	}
 };
 
+// 블럭이 돌아갈때 벽이나 블록이 있으면 처음부터 차례대로 동작한다.
 pair<int, int> wallKickTest[24] =
 {
 	{1, 0},
@@ -117,7 +118,7 @@ void Tetromino::print()
 void Tetromino::guidePrint(Board& board, Tetromino tetro)
 {
 	*this = tetro;
-	
+
 	guideDown(board);
 
 	for (int i = 0; i < BLOCK_SIZE; i++)
@@ -137,7 +138,7 @@ bool Tetromino::isBlock(Board& board)
 {
 	for (int i = 0; i < BLOCK_SIZE; i++)
 	{
-		if (board.getBlock(x + block[i].getX(), y + block[i].getY()).isFill() != false)
+		if (board.getBlock(x + block[i].getX(), y + block[i].getY()).isFill() == true)
 		{
 			return true;
 		}
