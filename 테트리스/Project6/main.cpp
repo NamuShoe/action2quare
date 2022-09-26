@@ -25,82 +25,157 @@ int main()
 	cout << BLACK;
 
 	double speed = 1;
+	int playerSelect = 1;
 	ULONGLONG startTick = GetTickCount64();
 	Board board;
 	char control = NULL;
 	deque<int> tetroDeque;
 
-	cout << "speed: ";
-	cin >> speed; // 초당 움직일 횟수
-
-	system("cls");
 	Tetromino* tet = nullptr;
 	Tetromino* guideTet = nullptr;
 	Tetromino nextTet = NULL;
 
+	cout << "1. 테트리스 시작, 2. AI 테트리스 시범 플레이: ";
+	cin >> playerSelect;
+	cout << "\nspeed: ";
+	cin >> speed; // 초당 움직일 횟수
+
+	system("cls");
+
 	while (true)
 	{
-		//Input------------------------------------------------------------
-		if (_kbhit())//키 입력 있으면 true, 없으면 false
-			control = _getch();//입력 키 반환
-		else
-			control = NULL;//입력 키 비움
-
-
-		//Logic------------------------------------------------------------
-		if (tet == nullptr)//테트로미노가 없을 경우
+		switch (playerSelect)
 		{
-			if(tetroDeque.size() < 7)
-				setNextTetro(tetroDeque);//데큐에 새로운 테트로미노 추가
+		case 1:
+			//Input------------------------------------------------------------
+			if (_kbhit())//키 입력 있으면 true, 없으면 false
+				control = _getch();//입력 키 반환
+			else
+				control = NULL;//입력 키 비움
 
-			tet = new Tetromino(tetroDeque.front());//tetroDuque의 첫번째 생성
-			guideTet = new Tetromino(tetroDeque.front());
-			tetroDeque.pop_front();//tetroDuque의 첫번째 삭제
-			if (tet->isBlock(board))//생성 될 때 충돌할 경우 GameOver
+
+			//Logic------------------------------------------------------------
+			if (tet == nullptr)//테트로미노가 없을 경우
+			{
+				if (tetroDeque.size() < 7)
+					setNextTetro(tetroDeque);//데큐에 새로운 테트로미노 추가
+
+				tet = new Tetromino(tetroDeque.front());//tetroDuque의 첫번째 생성
+				guideTet = new Tetromino(tetroDeque.front());
+				tetroDeque.pop_front();//tetroDuque의 첫번째 삭제
+				if (tet->isBlock(board))//생성 될 때 충돌할 경우 GameOver
+					break;
+			}
+
+			switch (control)//_getch로 입력 받은 키
+			{
+			case LEFT:
+				tet->goLeft(board);
 				break;
-		}
+			case RIGHT:
+				tet->goRight(board);
+				break;
+			case ROTATE:
+				tet->rotate(board);
+				break;
+			case DOWN:
+				tet->goDown(board);
+				startTick = GetTickCount64();//아래로 갈 경우, 시간 초기화
+				break;
+			}
 
-		switch (control)//_getch로 입력 받은 키
-		{
-		case LEFT:
-			tet->goLeft(board);
-			break;
-		case RIGHT:
-			tet->goRight(board);
-			break;
-		case ROTATE:
-			tet->rotate(board);
-			break;
-		case DOWN:
-			tet->goDown(board);
-			startTick = GetTickCount64();//아래로 갈 경우, 시간 초기화
-			break;
-		}
+			if (GetTickCount64() - startTick > 1.0 / speed * MILLI_SECOND)//일정 시간이 지날 경우
+			{
+				startTick = GetTickCount64();//시간 초기화
+				tet->goDown(board);//테트로미노를 아래로
+			}
 
-		if (GetTickCount64() - startTick > 1.0 / speed * MILLI_SECOND)//일정 시간이 지날 경우
-		{
-			startTick = GetTickCount64();//시간 초기화
-			tet->goDown(board);//테트로미노를 아래로
-		}
+			if (tet->isFixed())//테트로미노가 고정됐을 경우
+			{
+				board.setTetromino(*tet);
+				board.removeLine();
+				delete tet;//테트로미노 삭제
+				tet = nullptr;//테트로미노 nullptr로 초기화
+				continue;
+			}
 
-		if (tet->isFixed())//테트로미노가 고정됐을 경우
-		{
-			board.setTetromino(*tet);
-			board.removeLine();
-			delete tet;//테트로미노 삭제
-			tet = nullptr;//테트로미노 nullptr로 초기화
-			continue;
-		}
+			//Rendering------------------------------------------------------------
+			if (tet->isChange())//테트로미노에 변경이 있을 경우
+			{
+				board.print();//보드 출력
+				guideTet->guidePrint(board, *tet);//가이드테트로미노 출력
+				tet->print();//테트로미노 출력
+				for (int i = 0; i < 5; i++)
+					showNextTetro(Tetromino(tetroDeque[i]), 1 + (4 * i), 13);
+			}
+			break;
+		case 2:
+			//Input------------------------------------------------------------
+			if (_kbhit())//키 입력 있으면 true, 없으면 false
+				control = _getch();//입력 키 반환
+			else
+				control = NULL;//입력 키 비움
 
-		//Rendering------------------------------------------------------------
-		if (tet->isChange())//테트로미노에 변경이 있을 경우
-		{
-			board.print();//보드 출력
-			guideTet->guidePrint(board, *tet);//가이드테트로미노 출력
-			tet->print();//테트로미노 출력
-			for (int i = 0; i < 5; i++)
-				showNextTetro(Tetromino(tetroDeque[i]), 1 + (4 * i), 13);
-		}
+
+			//Logic------------------------------------------------------------
+			if (tet == nullptr)//테트로미노가 없을 경우
+			{
+				if (tetroDeque.size() < 7)
+					setNextTetro(tetroDeque);//데큐에 새로운 테트로미노 추가
+
+				tet = new Tetromino(tetroDeque.front());//tetroDuque의 첫번째 생성
+				guideTet = new Tetromino(tetroDeque.front());
+				tetroDeque.pop_front();//tetroDuque의 첫번째 삭제
+				if (tet->isBlock(board))//생성 될 때 충돌할 경우 GameOver
+					break;
+			}
+
+			switch (control)//_getch로 입력 받은 키
+			{
+			case LEFT:
+				tet->goLeft(board);
+				break;
+			case RIGHT:
+				tet->goRight(board);
+				break;
+			case ROTATE:
+				tet->rotate(board);
+				break;
+			case DOWN:
+				tet->goDown(board);
+				startTick = GetTickCount64();//아래로 갈 경우, 시간 초기화
+				break;
+			}
+
+			if (GetTickCount64() - startTick > 1.0 / speed * MILLI_SECOND)//일정 시간이 지날 경우
+			{
+				startTick = GetTickCount64();//시간 초기화
+				tet->goDown(board);//테트로미노를 아래로
+			}
+
+			if (tet->isFixed())//테트로미노가 고정됐을 경우
+			{
+				board.setTetromino(*tet);
+				board.removeLine();
+				delete tet;//테트로미노 삭제
+				tet = nullptr;//테트로미노 nullptr로 초기화
+				continue;
+			}
+
+			//Rendering------------------------------------------------------------
+			if (tet->isChange())//테트로미노에 변경이 있을 경우
+			{
+				board.print();//보드 출력
+				guideTet->guidePrint(board, *tet);//가이드테트로미노 출력
+				tet->print();//테트로미노 출력
+				for (int i = 0; i < 5; i++)
+					showNextTetro(Tetromino(tetroDeque[i]), 1 + (4 * i), 13);
+			}
+			break;
+
+		default:
+			break;
+		}	
 	}
 	system("cls");
 	cout << BLACK"GAME OVER";
