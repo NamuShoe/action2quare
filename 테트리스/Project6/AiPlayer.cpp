@@ -1,23 +1,73 @@
 ﻿#include <iostream>
 #include "AiPlayer.h"
-#include "Tetromino.h"
 
 AiPlayer::AiPlayer()
 {
 	aiBoardValue.resize(HEIGHT, std::vector<int>(WIDTH));
+
+	// 2차원 벡터 초기화
+	for (int i = 0; i < HEIGHT; i++)
+	{
+		for (int j = 0; j < WIDTH; j++)
+		{
+			aiBoardValue[i][j] = 0;
+		}
+	}
+
+	// 세로 벽 값 지정
+	for (int i = 0; i < aiBoardValue.size(); i++)
+	{
+		aiBoardValue[i][0] = aiBoardValue[i][11] = i;
+	}
+
+	// 바닥 값 지정
+	for (int i = 0; i < aiBoardValue[0].size(); i++)
+	{
+		aiBoardValue[20][i] = aiBoardValue[20][i] = 20;
+	}
 }
 
-int AiPlayer::AI_CheckAroundValue(Block& block, Tetromino tet)
+// 가이드의 좌표를 가져옴
+int AiPlayer::AI_CheckAroundValue(Board& board, Tetromino& aiTet, Tetromino tet)
 {
 	int sum = 0;
-	int x = block.getX() + tet.getX();
-	int y = block.getY() + tet.getY();
+	
+	// 가이드의 현재 좌표 읽어오기
+	aiTet = tet;
+	aiTet.guideDown(board);
 
+	Block* block;
+	block = aiTet.getBlock(); // aiTet에 들어있는 블럭을 가져옴	
+
+	int y = aiTet.getY(); // aiTet의 현재 x 좌표 여기에 블록의 디폴트 좌표를 더해서 값을 맞춰야 한다
+	int x = aiTet.getX(); // aiTet의 현재 y 좌표 여기에 블록의 디폴트 좌표를 더해서 값을 맞춰야 한다
+
+	int lx = 11, rx = 0; // aiX 좌표의 가장 왼쪽과 오른쪽을 찾는다
+	int highY = 0, lowY = 19; // aiY 좌표의 가장 아래쪽과 위쪽을 찾는다. highY 아래쪽, lowY 위쪽
+
+	for (int i = 0; i < 4; i++)
+	{
+		std::cout << block[i].getY() + y << ", " << block[i].getX() + x << std::endl; 
+		// 가이드의 현재 좌표 이걸로 aiBoardValue의 좌표 주변을 탐색하자
+		aiX[i] = block[i].getY() + y;
+		aiY[i] = block[i].getX() + x;
+
+		highY = highY < aiY[i] ? aiY[i] : highY; // 가장 큰 Y값을 찾는다.
+		lowY = lowY < aiY[i] ? lowY : aiY[i]; // 가장 작은 Y값을 찾는다.
+	}
+	
+	for (int i = 0; i < 4; i++)
+	{
+		if (aiGameValue[aiY[i]][aiX[i] - 1] > 0 || aiGameValue[aiY[i]][aiX[i] + 1] > 0 || 
+			(aiGameValue[aiY[i + 1]][aiX[i]] > 0 && aiY[i]==highY))
+	}
+	
+	/*
 		for (int i = 0; i < 4; i++)
 		{
 			for (int j = 0; j < 4; j++)
 			{
-				if (block.shape[block.type][rotation][i][j] == 1) // 블럭 오브젝트에 블럭이 들어 있다면 실행
+				if (board.getBlock(x + block[i].getX(), y + block[i].getY()).isFill() == true) // 블럭 오브젝트에 블럭이 들어 있다면 실행
 				{
 					for (int k = 0; k < 4; k++)
 					{
@@ -42,12 +92,13 @@ int AiPlayer::AI_CheckAroundValue(Block& block, Tetromino tet)
 					}
 				}
 			}
-		}
+		}*/
 	return sum;
 }
 
 void AiPlayer::AI_Check(void)
 {
+	/*
 	int val = 0;
 
 	if(aiCheck_on ==true){
@@ -202,4 +253,5 @@ void AiPlayer::AI_Check(void)
 	else if (aiX[aiXYRP] == block.x) if (aiXYRP == 0) aiOutput = SPACE; else  aiOutput = DOWN;
 
 	if (aiX[aiXYRP] == block.x && aiY[aiXYRP] == block.y && aiR[aiXYRP] == block.rotation && aiXYRP > 0) aiXYRP--;
+	*/
 }
