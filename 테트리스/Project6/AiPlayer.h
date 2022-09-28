@@ -11,18 +11,21 @@
 class AiPlayer
 {
 private:
-	std::vector<std::vector<int>> aiBoardValue; // 게임판의 value 저장
-
+	std::vector<std::vector<int>> aiBoardValue; //현재 게임판의 좌표value를 저장
+	int m_aiX; // 최종적으로 이동할 ai의 X좌표
+	int m_aiR; // 최종적으로 돌아갈 ai의 회전 횟수
+	bool b_rxDecision = false;
 public:
 	int aiOutput = 0; //컴퓨터가 getKey로 전달하는 입력값
 	int aiX[4] = { 0, }; // 내려놓을 곳 좌표를 저장
 	int aiY[4] = { 0, }; // 내려놓을 곳 좌표를 저장
-	int aiXYRP; //path순서(pointer) 저장
-	int aiGameValue[HEIGHT][WIDTH]; //현재 게임판의 좌표value를 저장
-	int aiGameUnder[HEIGHT][WIDTH]; //현재 게임판에서 블록아래 빈공간이 있는 곳을 저장
-	bool aiCheck_on; //블록 놓을 위치 및 path 재계산이 필요한 경우 true
 
 	AiPlayer();
-	int AI_CheckAroundValue(Board& board, Tetromino& aiTet, Tetromino tet); //블록의 주변값을 더해 최종 값 계산
-	void AI_Check(void); //블록을 놓을 위치 및 path찾는 함수
+	int AI_CheckAroundValue(Board &board, Tetromino &aiTet, Tetromino tet); //블록의 주변값을 더해 최종 값 계산
+	void AI_Check(Board& board, Tetromino& aiTet, Tetromino ai_Tet, Tetromino& tet); //블록을 놓을 위치 및 path찾는 함수
+	
+	void Set_AIx(int x) { m_aiX = x; }
+	void Set_AIr(int r) { m_aiR = r; }
+	int Get_AIx() { return m_aiX; }
+	int Get_AIr() { return m_aiR; }
 };

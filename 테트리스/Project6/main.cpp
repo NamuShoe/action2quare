@@ -36,8 +36,10 @@ int main()
 	Tetromino* guideTet = nullptr;
 	Tetromino nextTet = NULL;
 
+	int aiR = 0, aiX = 1;
 	AiPlayer aiPlayer;
 	Tetromino* aiTet = nullptr;
+	bool b_aiThink = true;
 
 	cout << "1. 테트리스 시작, 2. AI 테트리스 시범 플레이: ";
 	cin >> playerSelect;
@@ -115,10 +117,10 @@ int main()
 			break;
 		case 2:
 			//Input------------------------------------------------------------
-			if (_kbhit())//키 입력 있으면 true, 없으면 false
-				control = _getch();//입력 키 반환
-			else
-				control = NULL;//입력 키 비움
+			//if (_kbhit())//키 입력 있으면 true, 없으면 false
+			//	control = _getch();//입력 키 반환
+			//else
+			//	control = NULL;//입력 키 비움
 
 			//Logic------------------------------------------------------------
 			if (tet == nullptr)//테트로미노가 없을 경우
@@ -134,29 +136,58 @@ int main()
 					break;
 			}
 
-			switch (control)//_getch로 입력 받은 키
+			//switch (control)//_getch로 입력 받은 키
+			//{
+			//case LEFT:
+			//	tet->goLeft(board);
+			//	break;
+			//case RIGHT:
+			//	tet->goRight(board);
+			//	break;
+			//case ROTATE:
+			//	tet->rotate(board);
+			//	break;
+			//case DOWN:
+			//	tet->goDown(board);
+			//	startTick = GetTickCount64();//아래로 갈 경우, 시간 초기화
+			//	break;
+			//}
+			if (GetTickCount64() - startTick > 1.0 / 200)//일정 시간이 지날 경우
 			{
-			case LEFT:
-				tet->goLeft(board);
-				break;
-			case RIGHT:
-				tet->goRight(board);
-				break;
-			case ROTATE:
-				tet->rotate(board);
-				break;
-			case DOWN:
-				tet->goDown(board);
-				startTick = GetTickCount64();//아래로 갈 경우, 시간 초기화
-				break;
+				if (b_aiThink)
+				{
+					// 이 부분은 컴퓨터가 생각하는 부분이 들어가야 한다.
+					aiPlayer.AI_Check(board, *aiTet, *tet, *tet);
+					b_aiThink = false;
+				}
+				else
+				{
+					// 이 부분은 컴퓨터가 생각한 것을 토대로 실제 키를 입력하는 부분이 들어가야 한다.
+
+					// Get_AIr에 저장된 회전 횟수 만큼 회전한다.
+					if (aiPlayer.Get_AIr() > aiR)
+					{
+						aiR++;
+						tet->rotate(board);
+					}
+
+					// 이동해야 하는 X값이 현재 좌표보다 크다면
+					if (aiPlayer.Get_AIx() > tet->getY())
+					{
+						tet->goRight(board);
+					}
+					// 이동해야 하는 X값이 현재 좌표보다 작다면
+					else if (aiPlayer.Get_AIx() < tet->getY())
+					{
+						tet->goLeft(board);
+					}
+					// 이동해야 하는 X값이 현재 좌표와 같다면
+					else if (aiPlayer.Get_AIx() == tet->getY())
+					{
+						tet->goDown(board);
+					}
+				}
 			}
-
-			// 이 부분은 컴퓨터가 생각하는 부분이 들어가야 한다.
-			aiPlayer.AI_CheckAroundValue(board, *aiTet, *tet);
-
-
-			// 이 부분은 컴퓨터가 생각한 것을 토대로 실제 키를 입력하는 부분이 들어가야 한다.
-
 
 			if (GetTickCount64() - startTick > 1.0 / speed * MILLI_SECOND)//일정 시간이 지날 경우
 			{
@@ -166,6 +197,7 @@ int main()
 
 			if (tet->isFixed())//테트로미노가 고정됐을 경우
 			{
+				b_aiThink = true;
 				board.setTetromino(*tet);
 				board.removeLine();
 				delete tet;//테트로미노 삭제
@@ -190,7 +222,7 @@ int main()
 			cin >> playerSelect;
 			break;
 		}	
-	}
+ 	}
 	system("cls");
 	cout << BLACK"GAME OVER";
 }

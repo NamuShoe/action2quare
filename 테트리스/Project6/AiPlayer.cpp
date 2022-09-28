@@ -5,12 +5,12 @@ AiPlayer::AiPlayer()
 {
 	aiBoardValue.resize(HEIGHT, std::vector<int>(WIDTH));
 
-	// 2차원 벡터 초기화
+	// 2차원 벡터 초기화 블럭이 실제로 움직일 공간을 음수로 채워 넣는다
 	for (int i = 0; i < HEIGHT; i++)
 	{
 		for (int j = 0; j < WIDTH; j++)
 		{
-			aiBoardValue[i][j] = 0;
+			aiBoardValue[i][j] = -i;
 		}
 	}
 
@@ -28,9 +28,11 @@ AiPlayer::AiPlayer()
 }
 
 // 가이드의 좌표를 가져옴
-int AiPlayer::AI_CheckAroundValue(Board& board, Tetromino& aiTet, Tetromino tet)
+int AiPlayer::AI_CheckAroundValue(Board &board, Tetromino &aiTet, Tetromino tet)
 {
+	system("cls");
 	int sum = 0;
+	
 	
 	// 가이드의 현재 좌표 읽어오기
 	aiTet = tet;
@@ -42,216 +44,141 @@ int AiPlayer::AI_CheckAroundValue(Board& board, Tetromino& aiTet, Tetromino tet)
 	int y = aiTet.getY(); // aiTet의 현재 x 좌표 여기에 블록의 디폴트 좌표를 더해서 값을 맞춰야 한다
 	int x = aiTet.getX(); // aiTet의 현재 y 좌표 여기에 블록의 디폴트 좌표를 더해서 값을 맞춰야 한다
 
-	int lx = 11, rx = 0; // aiX 좌표의 가장 왼쪽과 오른쪽을 찾는다
-	int highY = 0, lowY = 19; // aiY 좌표의 가장 아래쪽과 위쪽을 찾는다. highY 아래쪽, lowY 위쪽
+	int lX = 11, rX = 0; // aiX 좌표의 가장 왼쪽과 오른쪽을 찾는다
+
+	int aiYIndex = 0; // aiY를 비교하기 위한 변수
+	
+	int saveLX = 0;
+	int saveRX = 0;
+
+	int highY = 0; // aiY 좌표의 가장 아래쪽과 위쪽을 찾는다. highY 아래쪽, lowY 위쪽
+
+	bool delay = false; // lX, rX 조작 변수
 
 	for (int i = 0; i < 4; i++)
 	{
-		std::cout << block[i].getY() + y << ", " << block[i].getX() + x << std::endl; 
+		//std::cout << block[i].getY() + y << ", " << block[i].getX() + x << std::endl; 
 		// 가이드의 현재 좌표 이걸로 aiBoardValue의 좌표 주변을 탐색하자
 		aiX[i] = block[i].getY() + y;
 		aiY[i] = block[i].getX() + x;
 
 		highY = highY < aiY[i] ? aiY[i] : highY; // 가장 큰 Y값을 찾는다.
-		lowY = lowY < aiY[i] ? lowY : aiY[i]; // 가장 작은 Y값을 찾는다.
 	}
 	
 	for (int i = 0; i < 4; i++)
 	{
-		if (aiGameValue[aiY[i]][aiX[i] - 1] > 0 || aiGameValue[aiY[i]][aiX[i] + 1] > 0 || 
-			(aiGameValue[aiY[i + 1]][aiX[i]] > 0 && aiY[i]==highY))
-	}
-	
-	/*
-		for (int i = 0; i < 4; i++)
+		// Y값에 변동이 생기면 delay를 true로 바꾸고 밑에서 교환한다.
+		// aiYIndex가 4보다 크면 배열 바깥으로 나가므로 예외처리
+		if (aiYIndex < 4 && (aiY[aiYIndex] != aiY[aiYIndex + 1] || aiYIndex == 3))
 		{
-			for (int j = 0; j < 4; j++)
+			delay = true;
+			lX = lX > aiX[i] ? aiX[i] : lX;
+			rX = rX < aiX[i] ? aiX[i] : rX;
+			aiYIndex++;
+		}
+
+		// 현 Y위치에서 가장 왼쪽과 오른쪽을 찾아낸다.
+		else
+		{
+			if (lX > aiX[i])
 			{
-				if (board.getBlock(x + block[i].getX(), y + block[i].getY()).isFill() == true) // 블럭 오브젝트에 블럭이 들어 있다면 실행
-				{
-					for (int k = 0; k < 4; k++)
-					{
-						switch (k) {
-						case 0:
-							if (((i == 0) && (aiGameValue[y + i - 1][x + j] > 0)) ||
-								((i != 0) && (block.shape[block.type][rotation][i - 1][j] != 1) && (aiGameValue[y + i - 1][x + j] > 0))) sum += aiGameValue[y + i - 1][x + j];
-							break;
-						case 1:
-							if ((i == 4) ||
-								(block.shape[block.type][rotation][i + 1][j] != 1)) sum += aiGameValue[y + i + 1][x + j];
-							break;
-						case 2:
-							if (((j == 0) && (aiGameValue[y + i][x + j - 1] > 0)) ||
-								((j != 0) && (block.shape[block.type][rotation][i][j - 1] != 1) && (aiGameValue[y + i][x + j - 1] > 0))) sum += aiGameValue[y + i][x + j - 1];
-							break;
-						case 3:
-							if (((j == 4) && aiGameValue[y + i][x + j + 1] > 0) ||
-								((j != 4) && (block.shape[block.type][rotation][i][j + 1] != 1) && (aiGameValue[y + i][x + j + 1] > 0))) sum += aiGameValue[y + i][x + j + 1];
-							break;
-						}
-					}
-				}
+				lX = aiX[i];
+				saveLX = i;
 			}
-		}*/
+			if (rX < aiX[i])
+			{
+				rX = aiX[i];
+				saveRX = i;
+			}
+			aiYIndex++;
+		}
+
+		if (rX > 10)
+		{
+			b_rxDecision = true; // rx가 10이 되면 true.
+			return -1;
+		}
+		// delay가 true이면 현 y좌표에서 가장 왼쪽과 오른쪽을 찾았다는 뜻이 된다.
+		// Y의 현재 좌표가 가장 밑이라면 탐색 시작 가장 왼쪽과 오른쪽의 값이 음수가 아니라면 값을 더한다.
+		if (delay)
+		{
+			if (aiBoardValue[aiY[saveLX]][lX - 1] > 0) sum += aiBoardValue[aiY[saveLX]][lX - 1];
+			if (aiBoardValue[aiY[saveRX]][rX + 1] > 0) sum += aiBoardValue[aiY[saveRX]][rX + 1];
+		}
+
+		// 가장 밑의 블록의 아래쪽이 음수가 아니라면 바닥의 값을 더한다.
+		if (aiBoardValue[aiY[i] + 1][aiX[i]] > 0 && aiY[i] == highY)
+		{
+			sum += aiBoardValue[aiY[i] + 1][aiX[i]];
+		}
+
+		// 다음 오는 Y값의 값이 바뀌므로 lX, rX의 값을 초기화 해준다.
+		if (delay)
+		{
+			delay = false;
+			lX = 11;
+			rX = 0;
+		}
+	}
 	return sum;
 }
 
-void AiPlayer::AI_Check(void)
-{
-	/*
-	int val = 0;
+void AiPlayer::AI_Check(Board& board, Tetromino& aiTet, Tetromino ai_Tet, Tetromino& tet)
+{	
+	int aiX = 1; // 해당 좌표까지 X값 이동
 
-	if(aiCheck_on ==true){
-		for (int i = 0; i < 10; i++) //초기화
-		{
-			aiX[i] = 0;
-			aiY[i] = 0;
-			aiR[i] = 0;
-		}
-		aiXYRP = 0;
+	int aiR = 0; // 회전 횟수 총 4번 계산할 것이며 이 값에 따라서 최종적으로 블럭이 몇번 돌아야 하는지 정해짐
 
-		for (int i = 0; i < HEIGHT; i++) //value표(+값) 구하기
+	int sum = 0;
+	int max = 0; // 가장 큰 경우의 수를 저장하기 위함
+
+	// 가이드의 현재 좌표 읽어오기
+	aiTet = ai_Tet;
+
+	Block* block;
+	block = aiTet.getBlock(); // aiTet에 들어있는 블럭을 가져옴	
+
+	// 왼쪽 끝부터 오른쪽 끝까지 돌려가며 4번 탐색하여 값이 가장 큰곳의 위치를 찾아냄
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 1; j <= 10; j++)
 		{
-			for (int j = 0; j < WIDTH; j++)
+			if (b_rxDecision)
 			{
-				if (gameOrg[i][j] > 0) aiGameValue[i][j] = i;
-				else aiGameValue[i][j] = 0;
+				b_rxDecision = false;
+				break;
 			}
-		}
-		for (int i = 0; i < HEIGHT - 1; i++) //value표(-값) 구하기
-		{ 
-			for (int j = 0; j < WIDTH; j++)
+			aiTet.setY(j);
+			sum = AI_CheckAroundValue(board, aiTet, aiTet);
+			if (max < sum)
 			{
-				if (aiGameValue[i][j] == 0 && (aiGameValue[i][j - 1] > 0 || aiGameValue[i][j + 1] > 0)) aiGameValue[i][j] = (-i);
+				max = sum;
+				aiX = j;
+				aiR = i;
 			}
 		}
-		for (int i = 0; i < HEIGHT; i++) //under표 초기화
-		{
-			for (int j = 0; j < WIDTH; j++)
-			{
-				aiGameUnder[i][j] = 0;
-			}
-		}
-		for (int i = 0; i < HEIGHT; i++) //under mark하기
-		{
-			for(int j=1;j<WIDTH-1;j++){
-				if (gameOrg[i][j] > 0 && gameOrg[i - 1][j] == 0)
-				{
-					for (int k = i - 1; k > 0; k--)
-					{
-						if (gameOrg[k][j] > 0)
-						{
-							for (int m = i - 1; m > k; m--) aiGameUnder[m][j] = 1;
-							break;
-						}
-					}
-				}
-			}
-		}
-
-		for (int i = 0; i < 21; i++) // 놓을 위치 및 path찾기
-		{
-			for (int j = 0; j < WIDTH; j++)
-			{
-				for (int k = 0; k < 4; k++)
-				{		
-
-					if (checkCrush(j, i + 1, k) == false && checkCrush(j, i, k) == true && AI_CheckAroundValue(j, i, k) > val)
-					{
-						bool onUnder = false; //onUnder는 hard drop이 가능한지 판별: false면 가능 , true면 불가능(위에 crush가 있음)						
-						for (int m = 0; m < 4; m++)
-						{ 
-							for (int n = 0; n < 4; n++)
-							{
-								if (block.shape[block.type][k][m][n] == 1 && aiGameUnder[i + m][j + n] == 1)
-								{
-									onUnder = true;
-								}
-							}
-						}					
-						if(onUnder==false) // hard drop이 가능하면 단일path
-						{		
-							aiXYRP=0;
-							val = AI_CheckAroundValue(j, i, k);
-							aiX[0] = j;
-							aiY[0] = i;
-							aiR[0] = k;
-						}
-						// 우회 시작
-						if (onUnder == true) // hard drop이 불가능하면 우회합니다.
-						{
-							aiXYRP = 0;
-
-							if (checkCrush(j + 1, i, k) == false && checkCrush(j - 1, i, k) == false && checkCrush(j, i - 1, k) == false)
-							{
-								break;
-							}
-							int tempX1 = j;
-							int tempY1 = i;
-							int tempX2 = j;
-							int tempY2 = i;
-							int tempXYRP = 0;
-
-							bool underStuck=true; //이 공간이 갇혀 있는지 아닌지를 판별. 무조건 갇혀 있다고 생각하고 출구가 있으면 false
-							for (int s = 1; s > -2; s -= 2) //현재 한번 우회해서 갈수 있는지만 판별할수 있음..
-							{ 
-								for (int x = 0; x < WIDTH; x++)
-								{
-									if (underStuck == false)
-									{
-										break;
-									}
-									for (int y = 0; y < HEIGHT; y++)
-									{
-										if (tempY1 - y == 0)
-										{
-											underStuck = false;
-											tempXYRP++;
-											aiX[tempXYRP] = j + x * s;
-											aiY[tempXYRP] = tempY1;
-											aiR[tempXYRP] = k;
-											break;
-										}
-										else if (checkCrush(j + x * s, tempY1 - y, k) == true)
-										{
-											tempX2 = j + x * s;
-											tempY2 = tempY1 - y;
-										}
-										else if (checkCrush(tempX1 + x * s, tempY1 - y, k) == false)
-										{
-											break;
-										}
-									}
-									if(tempX1==tempX2 && tempY1==tempY2 && x!=0) break;
-									else 
-									{
-										tempX1=tempX2;
-										tempY1=tempY2;
-									}
-								}
-							}
-
-							if(underStuck==false){ //1차로 우회가 가능한 경우 최종 path업데이트
-								val = AI_CheckAroundValue(j, i, k);
-								aiX[0] = j;
-								aiY[0] = i;
-								aiR[0] = k;
-								aiXYRP = tempXYRP;
-							}
-							// 우회 종료
-						}
-					}
-				}
-			}
-		}
-		aiCheck_on = false;
+		aiTet.rotate(board);
 	}
-//실제 path로 찾아가게 하는 부분
-	if (block.rotation != aiR[aiXYRP]) aiOutput = ROTATE;
-	else if (aiX[aiXYRP] > block.x) aiOutput = RIGHT;
-	else if (aiX[aiXYRP] < block.x) aiOutput = LEFT;
-	else if (aiX[aiXYRP] == block.x) if (aiXYRP == 0) aiOutput = SPACE; else  aiOutput = DOWN;
 
-	if (aiX[aiXYRP] == block.x && aiY[aiXYRP] == block.y && aiR[aiXYRP] == block.rotation && aiXYRP > 0) aiXYRP--;
-	*/
+	// main 함수에서 해당 좌표로 이동해야 하기 때문에 저장
+	Set_AIx(aiX);
+	Set_AIr(aiR);
+
+	// 나온 값 만큼 회전
+	for (int i = 0; i < aiR; i++)
+	{
+		aiTet.rotate(board);
+	}
+
+	// aiBoardValue에 값 저장을 위하여 해당 위치로 세팅한다.
+	aiTet.setY(aiX);
+	aiTet.guideDown(board);
+
+	// aiBoardValue에 값 저장
+	for (int i = 0; i < 4; i++)
+	{
+		int x = block[i].getY() + aiTet.getY();
+		int y = block[i].getX() + aiTet.getX();
+		aiBoardValue[y][x] *= -1;
+	}
 }
