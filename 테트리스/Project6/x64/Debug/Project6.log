@@ -1,7 +1,91 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: 중간 디렉터리(x64\Debug\)에 다른 프로젝트(Project6.vcxproj)에서 공유하는 파일이 포함되어 있습니다.  이로 인해 잘못된 정리 및 다시 빌드 동작이 수행될 수 있습니다.
+﻿C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: 중간 디렉터리(x64\Debug\)에 다른 프로젝트(TetrisYN.vcxproj)에서 공유하는 파일이 포함되어 있습니다.  이로 인해 잘못된 정리 및 다시 빌드 동작이 수행될 수 있습니다.
   AiPlayer.cpp
-  Board.cpp
-  Tetromino.cpp
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(15,1): error C2059: 구문 오류: '<<'
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(16,15): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(40,1): error C2059: 구문 오류: '=='
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(41,11): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(42,6): error C2086: 'int AiPlayer::m_aiR': 재정의
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(43,7): error C2086: 'bool AiPlayer::b_rxDecision': 재정의
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(46,6): error C2040: 'AiPlayer::aiX': 'int [4]'의 간접 참조 수준이 'std::vector<int,std::allocator<int>>'과(와) 다릅니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(47,6): error C2040: 'AiPlayer::aiY': 'int [4]'의 간접 참조 수준이 'std::vector<int,std::allocator<int>>'과(와) 다릅니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(49,10): error C2535: 'AiPlayer::AiPlayer(void)': 멤버 함수를 이미 정의했거나 선언했습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(29): message : 'AiPlayer::AiPlayer' 선언을 참조하십시오.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(53,22): error C2535: 'void AiPlayer::Set_AIx(int)': 멤버 함수를 이미 정의했거나 선언했습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(34): message : 'AiPlayer::Set_AIx' 선언을 참조하십시오.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(55,16): error C2535: 'int AiPlayer::Get_AIx(void)': 멤버 함수를 이미 정의했거나 선언했습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(36): message : 'AiPlayer::Get_AIx' 선언을 참조하십시오.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(56,16): error C2535: 'int AiPlayer::Get_AIr(void)': 멤버 함수를 이미 정의했거나 선언했습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(37): message : 'AiPlayer::Get_AIr' 선언을 참조하십시오.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(57,1): error C2059: 구문 오류: '>>'
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(58,1): error C2143: 구문 오류: ';'이(가) '}' 앞에 없습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(58,1): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(34,24): error C2065: 'm_aiX': 선언되지 않은 식별자입니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(36,25): error C2065: 'm_aiX': 선언되지 않은 식별자입니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(53,24): error C2065: 'm_aiX': 선언되지 않은 식별자입니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(55,25): error C2065: 'm_aiX': 선언되지 않은 식별자입니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.cpp(39,1): error C2059: 구문 오류: '<<'
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.cpp(41,1): error C2143: 구문 오류: ';'이(가) '{' 앞에 없습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.cpp(41,1): error C2447: '{': 함수 헤더가 없습니다. 이전 스타일의 형식 목록입니까?
   main.cpp
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(15,1): error C2059: 구문 오류: '<<'
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(16,15): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(40,1): error C2059: 구문 오류: '=='
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(41,11): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(42,6): error C2086: 'int AiPlayer::m_aiR': 재정의
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(43,7): error C2086: 'bool AiPlayer::b_rxDecision': 재정의
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(46,6): error C2040: 'AiPlayer::aiX': 'int [4]'의 간접 참조 수준이 'std::vector<int,std::allocator<int>>'과(와) 다릅니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(47,6): error C2040: 'AiPlayer::aiY': 'int [4]'의 간접 참조 수준이 'std::vector<int,std::allocator<int>>'과(와) 다릅니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(49,10): error C2535: 'AiPlayer::AiPlayer(void)': 멤버 함수를 이미 정의했거나 선언했습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(29): message : 'AiPlayer::AiPlayer' 선언을 참조하십시오.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(53,22): error C2535: 'void AiPlayer::Set_AIx(int)': 멤버 함수를 이미 정의했거나 선언했습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(34): message : 'AiPlayer::Set_AIx' 선언을 참조하십시오.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(55,16): error C2535: 'int AiPlayer::Get_AIx(void)': 멤버 함수를 이미 정의했거나 선언했습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(36): message : 'AiPlayer::Get_AIx' 선언을 참조하십시오.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(56,16): error C2535: 'int AiPlayer::Get_AIr(void)': 멤버 함수를 이미 정의했거나 선언했습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(37): message : 'AiPlayer::Get_AIr' 선언을 참조하십시오.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(57,1): error C2059: 구문 오류: '>>'
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(58,1): error C2143: 구문 오류: ';'이(가) '}' 앞에 없습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(58,1): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(34,24): error C2065: 'm_aiX': 선언되지 않은 식별자입니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(36,25): error C2065: 'm_aiX': 선언되지 않은 식별자입니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(53,24): error C2065: 'm_aiX': 선언되지 않은 식별자입니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\AiPlayer.h(55,25): error C2065: 'm_aiX': 선언되지 않은 식별자입니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(39,1): error C2059: 구문 오류: '<<'
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(48,1): error C2059: 구문 오류: '=='
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(50,11): error C2086: 'AiPlayer aiPlayer': 재정의
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(41): message : 'aiPlayer' 선언을 참조하십시오.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(51,13): error C2374: 'aiTet': 재정의. 여러 번 초기화했습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(42): message : 'aiTet' 선언을 참조하십시오.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(52,7): error C2374: 'b_aiThink': 재정의. 여러 번 초기화했습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(43): message : 'b_aiThink' 선언을 참조하십시오.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(58,1): error C2059: 구문 오류: '>>'
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(130,1): error C2059: 구문 오류: '<<'
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(132,1): error C2059: 구문 오류: '=='
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(142,4): error C2143: 구문 오류: ';'이(가) '{' 앞에 없습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(154,1): error C2059: 구문 오류: '<<'
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(175,4): error C2143: 구문 오류: ';'이(가) '{' 앞에 없습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(179,1): error C2059: 구문 오류: '<<'
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(181,1): error C2059: 구문 오류: '=='
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(183,1): error C2059: 구문 오류: '>>'
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(190,1): error C2059: 구문 오류: '<<'
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(195,1): error C2059: 구문 오류: '=='
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(198,6): error C2143: 구문 오류: ';'이(가) '{' 앞에 없습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(199,7): error C2065: 'aiR': 선언되지 않은 식별자입니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(205,1): error C2059: 구문 오류: '>>'
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(206,6): error C2143: 구문 오류: ';'이(가) '{' 앞에 없습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(210,1): error C2059: 구문 오류: '<<'
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(215,6): error C2143: 구문 오류: ';'이(가) '{' 앞에 없습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(219,6): error C2181: if와 짝을 이루지 않는 잘못된 else문입니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(260,1): error C2059: 구문 오류: '<<'
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(263,1): error C2059: 구문 오류: '=='
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(265,3): error C2059: 구문 오류: '}'
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(265,3): error C2143: 구문 오류: ';'이(가) '}' 앞에 없습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(268,12): error C2143: 구문 오류: ';'이(가) '<<' 앞에 없습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(268,12): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(268,7): error C2371: 'std::cout': 재정의. 기본 형식이 다릅니다.
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.33.31629\include\iostream(40): message : 'std::cout' 선언을 참조하십시오.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(269,1): error C2059: 구문 오류: '}'
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(269,1): error C2143: 구문 오류: ';'이(가) '}' 앞에 없습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(272,1): error C2143: 구문 오류: ';'이(가) '{' 앞에 없습니다.
+C:\Users\action\Desktop\Git_Project\테트리스\Project6\main.cpp(272,1): error C2447: '{': 함수 헤더가 없습니다. 이전 스타일의 형식 목록입니까?
   코드를 생성하고 있습니다...
-  Project6.vcxproj -> C:\Users\action\Desktop\Git_Project\테트리스\x64\Debug\TetrisYN.exe
